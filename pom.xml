@@ -21,7 +21,7 @@
 
   <groupId>com.github.robtimus</groupId>
   <artifactId>try-parse</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <name>try-parse</name>
@@ -46,7 +46,7 @@
   <scm>
     <connection>scm:git:git@github.com:robtimus/try-parse.git</connection>
     <developerConnection>scm:git:git@github.com:robtimus/try-parse.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>try-parse-1.1</tag>
     <url>https://github.com/robtimus/try-parse</url>
   </scm>
 
