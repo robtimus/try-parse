@@ -18,11 +18,11 @@
 package com.github.robtimus.tryparse;
 
 import static com.github.robtimus.tryparse.TryParse.tryParseLong;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.math.BigInteger;
 import java.util.OptionalLong;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({ "javadoc", "nls" })
 public class TryParseLongTest {
@@ -235,78 +235,38 @@ public class TryParseLongTest {
     }
 
     private void checkFailure(String input) {
-        try {
-            Long.parseLong(input);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        assertThrows(NumberFormatException.class, () -> Long.parseLong(input));
         assertEquals(OptionalLong.empty(), tryParseLong(input));
     }
 
     private void checkFailure(String input, int radix) {
-        try {
-            Long.parseLong(input, radix);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        assertThrows(NumberFormatException.class, () -> Long.parseLong(input, radix));
         assertEquals(OptionalLong.empty(), tryParseLong(input, radix));
     }
 
     private void checkFailure(String input, int start, int end) {
-        try {
-            // Long.parseLong with indexing is not yet available, use substring
-            Long.parseLong(input.substring(start, end));
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        // Long.parseLong with indexing is not yet available, use substring
+        assertThrows(NumberFormatException.class, () -> Long.parseLong(input.substring(start, end)));
         assertEquals(OptionalLong.empty(), tryParseLong(input, start, end));
     }
 
     private void checkFailure(String input, int start, int end, int radix) {
-        try {
-            // Long.parseLong with indexing is not yet available, use substring
-            Long.parseLong(input.substring(start, end), radix);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        // Long.parseLong with indexing is not yet available, use substring
+        assertThrows(NumberFormatException.class, () -> Long.parseLong(input.substring(start, end), radix));
         assertEquals(OptionalLong.empty(), tryParseLong(input, start, end, radix));
     }
 
     private void checkIllegalArgumentException(String input, int start, int end, int radix) {
-        try {
-            // Long.parseLong with indexing is not yet available, use substring
-            Long.parseLong(input.substring(start, end), radix);
-            // Long.parseLong throws NumberFormatException for invalid radixes instead of IllegalArgumentException
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
-        try {
-            tryParseLong(input, start, end, radix);
-            fail("Expected IllegalArgumentException");
-        } catch (@SuppressWarnings("unused") IllegalArgumentException e) {
-            // expected
-        }
+        // Long.parseLong with indexing is not yet available, use substring
+        // Long.parseLong throws NumberFormatException for invalid radixes instead of IllegalArgumentException
+        assertThrows(NumberFormatException.class, () -> Long.parseLong(input.substring(start, end), radix));
+        assertThrows(IllegalArgumentException.class, () -> tryParseLong(input, start, end, radix));
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, int radix) {
-        try {
-            // Long.parseLong with indexing is not yet available, use substring
-            Long.parseLong(input.substring(start, end), radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
-        try {
-            tryParseLong(input, start, end, radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
+        // Long.parseLong with indexing is not yet available, use substring
+        assertThrows(IndexOutOfBoundsException.class, () -> Long.parseLong(input.substring(start, end), radix));
+        assertThrows(IndexOutOfBoundsException.class, () -> tryParseLong(input, start, end, radix));
     }
 
     private void checkNull(int radix) {

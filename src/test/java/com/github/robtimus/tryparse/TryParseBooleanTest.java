@@ -18,10 +18,10 @@
 package com.github.robtimus.tryparse;
 
 import static com.github.robtimus.tryparse.TryParse.tryParseBoolean;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Optional;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({ "javadoc", "nls" })
 public class TryParseBooleanTest {
@@ -152,12 +152,7 @@ public class TryParseBooleanTest {
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, boolean ignoreCase) {
-        try {
-            tryParseBoolean(input, start, end, ignoreCase);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
+        assertThrows(IndexOutOfBoundsException.class, () -> tryParseBoolean(input, start, end, ignoreCase));
     }
 
     private void checkNull(boolean ignoreCase) {

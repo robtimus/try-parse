@@ -9,3 +9,5 @@ Currently there are five sets of methods:
 * `TryParse.tryParseLong`: a copy of `Long.parseLong` to parse to [OptionalLong](https://docs.oracle.com/javase/8/docs/api/java/util/OptionalLong.html) instead of throwing exceptions.
 * `TryParse.tryParseUnsignedLong`: a copy of `Long.parseUnsignedLong` to parse to [OptionalLong](https://docs.oracle.com/javase/8/docs/api/java/util/OptionalLong.html) instead of throwing exceptions.
 * `TryParse.tryParseBoolean`: a copy of `Boolean.parseBoolean` to parse to [Optional](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html) instead of returning `false`.
+
+In addition, there are several methods that delegate to an existing method, catching expected exceptions. These are not as fast as the above five sets, but can still be useful.

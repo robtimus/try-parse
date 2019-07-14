@@ -18,10 +18,10 @@
 package com.github.robtimus.tryparse;
 
 import static com.github.robtimus.tryparse.TryParse.tryParseUnsignedInt;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.OptionalInt;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({ "javadoc", "nls" })
 public class TryParseUnsignedIntTest {
@@ -233,78 +233,38 @@ public class TryParseUnsignedIntTest {
     }
 
     private void checkFailure(String input) {
-        try {
-            Integer.parseUnsignedInt(input);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input));
         assertEquals(OptionalInt.empty(), tryParseUnsignedInt(input));
     }
 
     private void checkFailure(String input, int radix) {
-        try {
-            Integer.parseUnsignedInt(input, radix);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input, radix));
         assertEquals(OptionalInt.empty(), tryParseUnsignedInt(input, radix));
     }
 
     private void checkFailure(String input, int start, int end) {
-        try {
-            // Integer.parseUnsignedInt with indexing is not yet available, use substring
-            Integer.parseUnsignedInt(input.substring(start, end));
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        // Integer.parseUnsignedInt with indexing is not yet available, use substring
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input.substring(start, end)));
         assertEquals(OptionalInt.empty(), tryParseUnsignedInt(input, start, end));
     }
 
     private void checkFailure(String input, int start, int end, int radix) {
-        try {
-            // Integer.parseUnsignedInt with indexing is not yet available, use substring
-            Integer.parseUnsignedInt(input.substring(start, end), radix);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        // Integer.parseUnsignedInt with indexing is not yet available, use substring
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input.substring(start, end), radix));
         assertEquals(OptionalInt.empty(), tryParseUnsignedInt(input, start, end, radix));
     }
 
     private void checkIllegalArgumentException(String input, int start, int end, int radix) {
-        try {
-            // Integer.parseUnsignedInt with indexing is not yet available, use substring
-            Integer.parseUnsignedInt(input.substring(start, end), radix);
-            // Integer.parseUnsignedInt throws NumberFormatException for invalid radixes instead of IllegalArgumentException
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
-        try {
-            tryParseUnsignedInt(input, start, end, radix);
-            fail("Expected IllegalArgumentException");
-        } catch (@SuppressWarnings("unused") IllegalArgumentException e) {
-            // expected
-        }
+        // Integer.parseUnsignedInt with indexing is not yet available, use substring
+        // Integer.parseUnsignedInt throws NumberFormatException for invalid radixes instead of IllegalArgumentException
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input.substring(start, end), radix));
+        assertThrows(IllegalArgumentException.class, () -> tryParseUnsignedInt(input, start, end, radix));
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, int radix) {
-        try {
-            // Integer.parseUnsignedInt with indexing is not yet available, use substring
-            Integer.parseUnsignedInt(input.substring(start, end), radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
-        try {
-            tryParseUnsignedInt(input, start, end, radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
+        // Integer.parseUnsignedInt with indexing is not yet available, use substring
+        assertThrows(IndexOutOfBoundsException.class, () -> Integer.parseUnsignedInt(input.substring(start, end), radix));
+        assertThrows(IndexOutOfBoundsException.class, () -> tryParseUnsignedInt(input, start, end, radix));
     }
 
     private void checkNull(int radix) {

@@ -18,10 +18,10 @@
 package com.github.robtimus.tryparse;
 
 import static com.github.robtimus.tryparse.TryParse.tryParseInt;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.OptionalInt;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({ "javadoc", "nls" })
 public class TryParseIntTest {
@@ -227,78 +227,38 @@ public class TryParseIntTest {
     }
 
     private void checkFailure(String input) {
-        try {
-            Integer.parseInt(input);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input));
         assertEquals(OptionalInt.empty(), tryParseInt(input));
     }
 
     private void checkFailure(String input, int radix) {
-        try {
-            Integer.parseInt(input, radix);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input, radix));
         assertEquals(OptionalInt.empty(), tryParseInt(input, radix));
     }
 
     private void checkFailure(String input, int start, int end) {
-        try {
-            // Integer.parseInt with indexing is not yet available, use substring
-            Integer.parseInt(input.substring(start, end));
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        // Integer.parseInt with indexing is not yet available, use substring
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input.substring(start, end)));
         assertEquals(OptionalInt.empty(), tryParseInt(input, start, end));
     }
 
     private void checkFailure(String input, int start, int end, int radix) {
-        try {
-            // Integer.parseInt with indexing is not yet available, use substring
-            Integer.parseInt(input.substring(start, end), radix);
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        // Integer.parseInt with indexing is not yet available, use substring
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input.substring(start, end), radix));
         assertEquals(OptionalInt.empty(), tryParseInt(input, start, end, radix));
     }
 
     private void checkIllegalArgumentException(String input, int start, int end, int radix) {
-        try {
-            // Integer.parseInt with indexing is not yet available, use substring
-            Integer.parseInt(input.substring(start, end), radix);
-            // Integer.parseInt throws NumberFormatException for invalid radixes instead of IllegalArgumentException
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
-        try {
-            tryParseInt(input, start, end, radix);
-            fail("Expected IllegalArgumentException");
-        } catch (@SuppressWarnings("unused") IllegalArgumentException e) {
-            // expected
-        }
+        // Integer.parseInt with indexing is not yet available, use substring
+        // Integer.parseInt throws NumberFormatException for invalid radixes instead of IllegalArgumentException
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input.substring(start, end), radix));
+        assertThrows(IllegalArgumentException.class, () -> tryParseInt(input, start, end, radix));
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, int radix) {
-        try {
-            // Integer.parseInt with indexing is not yet available, use substring
-            Integer.parseInt(input.substring(start, end), radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
-        try {
-            tryParseInt(input, start, end, radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
+        // Integer.parseInt with indexing is not yet available, use substring
+        assertThrows(IndexOutOfBoundsException.class, () -> Integer.parseInt(input.substring(start, end), radix));
+        assertThrows(IndexOutOfBoundsException.class, () -> tryParseInt(input, start, end, radix));
     }
 
     private void checkNull(int radix) {

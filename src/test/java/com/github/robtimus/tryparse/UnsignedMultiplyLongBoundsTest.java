@@ -17,9 +17,10 @@
 
 package com.github.robtimus.tryparse;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("javadoc")
 public class UnsignedMultiplyLongBoundsTest {
@@ -34,8 +35,8 @@ public class UnsignedMultiplyLongBoundsTest {
         }
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testGetRadixToHigh() {
-        UnsignedMultiplyLongBounds.get(Character.MAX_RADIX + 1);
+        assertThrows(IndexOutOfBoundsException.class, () -> UnsignedMultiplyLongBounds.get(Character.MAX_RADIX + 1));
     }
 }

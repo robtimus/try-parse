@@ -17,7 +17,22 @@
 
 package com.github.robtimus.tryparse;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalQuery;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 
@@ -44,6 +59,7 @@ public final class TryParse {
      * @return An {@code OptionalInt} with the result of parsing the given portion of the given {@code CharSequence}, or {@link OptionalInt#empty()}
      *         if parsing failed.
      */
+    @NativeParsing
     public static OptionalInt tryParseInt(CharSequence cs) {
         return tryParseInt(cs, DEFAULT_RADIX);
     }
@@ -59,6 +75,7 @@ public final class TryParse {
      *         if parsing failed.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalInt tryParseInt(CharSequence cs, int radix) {
         return cs == null ? OptionalInt.empty() : tryParseInt(cs, 0, cs.length(), radix);
     }
@@ -75,6 +92,7 @@ public final class TryParse {
      * @throws IndexOutOfBoundsException If the given start index is negative or larger than the given end index,
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      */
+    @NativeParsing
     public static OptionalInt tryParseInt(CharSequence cs, int start, int end) {
         return tryParseInt(cs, start, end, DEFAULT_RADIX);
     }
@@ -94,6 +112,7 @@ public final class TryParse {
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalInt tryParseInt(CharSequence cs, int start, int end, int radix) {
         if (cs == null) {
             return OptionalInt.empty();
@@ -160,6 +179,7 @@ public final class TryParse {
      * @return An {@code OptionalInt} with the result of parsing the given portion of the given {@code CharSequence}, or {@link OptionalInt#empty()}
      *         if parsing failed.
      */
+    @NativeParsing
     public static OptionalInt tryParseUnsignedInt(CharSequence cs) {
         return tryParseUnsignedInt(cs, DEFAULT_RADIX);
     }
@@ -175,6 +195,7 @@ public final class TryParse {
      *         if parsing failed.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalInt tryParseUnsignedInt(CharSequence cs, int radix) {
         return cs == null ? OptionalInt.empty() : tryParseUnsignedInt(cs, 0, cs.length(), radix);
     }
@@ -191,6 +212,7 @@ public final class TryParse {
      * @throws IndexOutOfBoundsException If the given start index is negative or larger than the given end index,
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      */
+    @NativeParsing
     public static OptionalInt tryParseUnsignedInt(CharSequence cs, int start, int end) {
         return tryParseUnsignedInt(cs, start, end, DEFAULT_RADIX);
     }
@@ -210,6 +232,7 @@ public final class TryParse {
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalInt tryParseUnsignedInt(CharSequence cs, int start, int end, int radix) {
         if (cs == null) {
             return OptionalInt.empty();
@@ -268,6 +291,7 @@ public final class TryParse {
      * @return An {@code OptionalLong} with the result of parsing the given portion of the given {@code CharSequence}, or {@link OptionalLong#empty()}
      *         if parsing failed.
      */
+    @NativeParsing
     public static OptionalLong tryParseLong(CharSequence cs) {
         return tryParseLong(cs, DEFAULT_RADIX);
     }
@@ -283,6 +307,7 @@ public final class TryParse {
      *         if parsing failed.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalLong tryParseLong(CharSequence cs, int radix) {
         return cs == null ? OptionalLong.empty() : tryParseLong(cs, 0, cs.length(), radix);
     }
@@ -299,6 +324,7 @@ public final class TryParse {
      * @throws IndexOutOfBoundsException If the given start index is negative or larger than the given end index,
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      */
+    @NativeParsing
     public static OptionalLong tryParseLong(CharSequence cs, int start, int end) {
         return tryParseLong(cs, start, end, DEFAULT_RADIX);
     }
@@ -318,6 +344,7 @@ public final class TryParse {
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalLong tryParseLong(CharSequence cs, int start, int end, int radix) {
         if (cs == null) {
             return OptionalLong.empty();
@@ -384,6 +411,7 @@ public final class TryParse {
      * @return An {@code OptionalLong} with the result of parsing the given portion of the given {@code CharSequence}, or {@link OptionalLong#empty()}
      *         if parsing failed.
      */
+    @NativeParsing
     public static OptionalLong tryParseUnsignedLong(CharSequence cs) {
         return tryParseUnsignedLong(cs, DEFAULT_RADIX);
     }
@@ -399,6 +427,7 @@ public final class TryParse {
      *         if parsing failed.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalLong tryParseUnsignedLong(CharSequence cs, int radix) {
         return cs == null ? OptionalLong.empty() : tryParseUnsignedLong(cs, 0, cs.length(), radix);
     }
@@ -415,6 +444,7 @@ public final class TryParse {
      * @throws IndexOutOfBoundsException If the given start index is negative or larger than the given end index,
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      */
+    @NativeParsing
     public static OptionalLong tryParseUnsignedLong(CharSequence cs, int start, int end) {
         return tryParseUnsignedLong(cs, start, end, DEFAULT_RADIX);
     }
@@ -434,6 +464,7 @@ public final class TryParse {
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      * @throws IllegalArgumentException If the given radix is invalid.
      */
+    @NativeParsing
     public static OptionalLong tryParseUnsignedLong(CharSequence cs, int start, int end, int radix) {
         if (cs == null) {
             return OptionalLong.empty();
@@ -495,6 +526,7 @@ public final class TryParse {
      * @throws IndexOutOfBoundsException If the given start index is negative or larger than the given end index,
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      */
+    @NativeParsing
     public static Optional<Boolean> tryParseBoolean(CharSequence cs) {
         return tryParseBoolean(cs, true);
     }
@@ -509,6 +541,7 @@ public final class TryParse {
      * @return An {@code Optional} with the result of parsing the given portion of the given {@code CharSequence},
      *         or {@link Optional#empty()} if parsing failed.
      */
+    @NativeParsing
     public static Optional<Boolean> tryParseBoolean(CharSequence cs, boolean ignoreCase) {
         return cs == null ? Optional.empty() : tryParseBoolean(cs, 0, cs.length(), ignoreCase);
     }
@@ -526,6 +559,7 @@ public final class TryParse {
      * @throws IndexOutOfBoundsException If the given start index is negative or larger than the given end index,
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      */
+    @NativeParsing
     public static Optional<Boolean> tryParseBoolean(CharSequence cs, int start, int end) {
         return tryParseBoolean(cs, start, end, true);
     }
@@ -544,6 +578,7 @@ public final class TryParse {
      * @throws IndexOutOfBoundsException If the given start index is negative or larger than the given end index,
      *                                       or if the given end index is larger than the given {@code CharSequence}'s length.
      */
+    @NativeParsing
     public static Optional<Boolean> tryParseBoolean(CharSequence cs, int start, int end, boolean ignoreCase) {
         if (cs == null) {
             return Optional.empty();
@@ -588,6 +623,474 @@ public final class TryParse {
             return Optional.of(false);
         }
         return Optional.empty();
+    }
+
+    // double
+
+    /**
+     * Tries to parse the given {@link String}.
+     * This method delegates to {@link Double#parseDouble(String)}, catching any {@link NumberFormatException}.
+     *
+     * @param s The {@code String} to parse.
+     * @return An {@code OptionalDouble} with the result of parsing the given {@code String},
+     *         or {@link OptionalDouble#empty()} if the {@code String} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static OptionalDouble tryParseDouble(String s) {
+        if (s == null) {
+            return OptionalDouble.empty();
+        }
+        try {
+            return OptionalDouble.of(Double.parseDouble(s));
+        } catch (@SuppressWarnings("unused") NumberFormatException e) {
+            return OptionalDouble.empty();
+        }
+    }
+
+    // URI
+
+    /**
+     * Tries to parse a {@code String} into a {@link URI}.
+     * This method delegates to {@link URI#URI(String)}, catching any {@link URISyntaxException}.
+     *
+     * @param str The {@code String} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code String},
+     *         or {@link Optional#empty()} if the {@code String} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<URI> tryParseURI(String str) {
+        if (str == null) {
+            return Optional.empty();
+        }
+        try {
+            return Optional.of(new URI(str));
+        } catch (@SuppressWarnings("unused") URISyntaxException e) {
+            return Optional.empty();
+        }
+    }
+
+    // URL
+
+    /**
+     * Tries to parse a {@code String} into a {@link URL}.
+     * This method delegates to {@link URL#URL(String)}, catching any {@link MalformedURLException}.
+     *
+     * @param spec The {@code String} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code String},
+     *         or {@link Optional#empty()} if the {@code String} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<URL> tryParseURL(String spec) {
+        if (spec == null) {
+            return Optional.empty();
+        }
+        try {
+            return Optional.of(new URL(spec));
+        } catch (@SuppressWarnings("unused") MalformedURLException e) {
+            return Optional.empty();
+        }
+    }
+
+    // Instant
+
+    /**
+     * Tries to parse a {@link CharSequence} into an {@link Instant}.
+     * This method delegates to {@link Instant#parse(CharSequence)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<Instant> tryParseInstant(CharSequence text) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(Instant.parse(text));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // LocalDate
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link LocalDate}.
+     * This method delegates to {@link LocalDate#parse(CharSequence)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<LocalDate> tryParseLocalDate(CharSequence text) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(LocalDate.parse(text));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link LocalDate}.
+     * This method delegates to {@link LocalDate#parse(CharSequence, DateTimeFormatter)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @param formatter The {@code DateTimeFormatter} to use for parsing.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @throws NullPointerException If the given {@code DateTimeFormatter} is {@code null}.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<LocalDate> tryParseLocalDate(CharSequence text, DateTimeFormatter formatter) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(LocalDate.parse(text, formatter));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // LocalDateTime
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link LocalDateTime}.
+     * This method delegates to {@link LocalDateTime#parse(CharSequence)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<LocalDateTime> tryParseLocalDateTime(CharSequence text) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(LocalDateTime.parse(text));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link LocalDateTime}.
+     * This method delegates to {@link LocalDateTime#parse(CharSequence, DateTimeFormatter)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @param formatter The {@code DateTimeFormatter} to use for parsing.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @throws NullPointerException If the given {@code DateTimeFormatter} is {@code null}.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<LocalDateTime> tryParseLocalDateTime(CharSequence text, DateTimeFormatter formatter) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(LocalDateTime.parse(text, formatter));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // LocalTime
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link LocalTime}.
+     * This method delegates to {@link LocalTime#parse(CharSequence)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<LocalTime> tryParseLocalTime(CharSequence text) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(LocalTime.parse(text));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link LocalTime}.
+     * This method delegates to {@link LocalTime#parse(CharSequence, DateTimeFormatter)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @param formatter The {@code DateTimeFormatter} to use for parsing.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @throws NullPointerException If the given {@code DateTimeFormatter} is {@code null}.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<LocalTime> tryParseLocalTime(CharSequence text, DateTimeFormatter formatter) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(LocalTime.parse(text, formatter));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // OffsetDateTime
+
+    /**
+     * Tries to parse a {@link CharSequence} into an {@link OffsetDateTime}.
+     * This method delegates to {@link OffsetDateTime#parse(CharSequence)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<OffsetDateTime> tryParseOffsetDateTime(CharSequence text) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(OffsetDateTime.parse(text));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tries to parse a {@link CharSequence} into an {@link OffsetDateTime}.
+     * This method delegates to {@link OffsetDateTime#parse(CharSequence, DateTimeFormatter)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @param formatter The {@code DateTimeFormatter} to use for parsing.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @throws NullPointerException If the given {@code DateTimeFormatter} is {@code null}.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<OffsetDateTime> tryParseOffsetDateTime(CharSequence text, DateTimeFormatter formatter) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(OffsetDateTime.parse(text, formatter));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // OffsetTime
+
+    /**
+     * Tries to parse a {@link CharSequence} into an {@link OffsetTime}.
+     * This method delegates to {@link OffsetTime#parse(CharSequence)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<OffsetTime> tryParseOffsetTime(CharSequence text) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(OffsetTime.parse(text));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tries to parse a {@link CharSequence} into an {@link OffsetTime}.
+     * This method delegates to {@link OffsetTime#parse(CharSequence, DateTimeFormatter)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @param formatter The {@code DateTimeFormatter} to use for parsing.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @throws NullPointerException If the given {@code DateTimeFormatter} is {@code null}.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<OffsetTime> tryParseOffsetTime(CharSequence text, DateTimeFormatter formatter) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(OffsetTime.parse(text, formatter));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // ZonedDateTime
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link ZonedDateTime}.
+     * This method delegates to {@link ZonedDateTime#parse(CharSequence)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<ZonedDateTime> tryParseZonedDateTime(CharSequence text) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(ZonedDateTime.parse(text));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tries to parse a {@link CharSequence} into a {@link ZonedDateTime}.
+     * This method delegates to {@link ZonedDateTime#parse(CharSequence, DateTimeFormatter)}, catching any {@link DateTimeParseException}.
+     *
+     * @param text The {@code CharSequence} to parse.
+     * @param formatter The {@code DateTimeFormatter} to use for parsing.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @throws NullPointerException If the given {@code DateTimeFormatter} is {@code null}.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static Optional<ZonedDateTime> tryParseZonedDateTime(CharSequence text, DateTimeFormatter formatter) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(ZonedDateTime.parse(text, formatter));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // DateTimeFormatter
+
+    /**
+     * Tries to parse a {@link CharSequence} using a {@link DateTimeFormatter} and {@link TemporalQuery}.
+     * This method delegates to {@link DateTimeFormatter#parse(CharSequence, TemporalQuery)}, catching any {@link DateTimeParseException}.
+     *
+     * @param <R> The type to parse to.
+     * @param text The {@code CharSequence} to parse.
+     * @param formatter The {@code DateTimeFormatter} to use for parsing.
+     * @param query The query defining the type to parse to.
+     * @return An {@code Optional} with the result of parsing the given {@code CharSequence},
+     *         or {@link Optional#empty()} if the {@code CharSequence} is {@code null} or if parsing failed.
+     * @throws NullPointerException If the given {@code DateTimeFormatter} or {@code TemporalQuery} is {@code null}.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static <R> Optional<R> tryParseTemporal(CharSequence text, DateTimeFormatter formatter, TemporalQuery<? extends R> query) {
+        if (text == null) {
+            return Optional.empty();
+        }
+        // DateTimeFormatter.parse with a ParsePosition still throws a DateTimeParseException, so use the try-catch method instead
+        try {
+            return Optional.of(formatter.parse(text, query));
+        } catch (@SuppressWarnings("unused") DateTimeParseException e) {
+            return Optional.empty();
+        }
+    }
+
+    // generic
+
+    /**
+     * Tries to parse an object. This is a generic purpose method that will attempt to parse the given input using the given parser. If the parsing
+     * throws any exception, this method will return {@link Optional#empty()} instead.
+     *
+     * @param <T> The type of object to parse.
+     * @param <R> The type of the parse result.
+     * @param input The object to parse.
+     * @param parser The parser that will perform the parsing.
+     * @return An {@code Optional} with the result of parsing the given object, or {@link Optional#empty()} if parsing failed with an exception,
+     *         or if the parser returned {@code null}.
+     * @throws NullPointerException If the given parser is {@code null},
+     *                                  or if the given input is {@code null} and the parser does not accept {@code null} values.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static <T, R> Optional<R> tryParse(T input, ParseFunction<? super T, ? extends R, ? extends Exception> parser) {
+
+        try {
+            return Optional.ofNullable(parser.parse(input));
+        } catch (@SuppressWarnings("unused") Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Tries to parse an object. This is a generic purpose method that will attempt to parse the given input using the given parser. If the parsing
+     * throws an exception of the given expected exception type, this method will return {@link Optional#empty()} instead. Any other (unchecked)
+     * exceptions will be thrown as-is.
+     *
+     * @param <T> The type of object to parse.
+     * @param <R> The type of the parse result.
+     * @param <X> The type of exception that occurs if parsing fails.
+     * @param input The object to parse.
+     * @param parser The parser that will perform the parsing.
+     * @param expectedExceptionType The expected type of exception.
+     * @return An {@code Optional} with the result of parsing the given object, or {@link Optional#empty()} if parsing failed with the given exception
+     *         type, or if the parser returned {@code null}.
+     * @throws NullPointerException If the given parser or expected exception type is {@code null},
+     *                                  or if the given input is {@code null} and the parser does not accept {@code null} values.
+     * @since 1.1
+     */
+    @ExceptionBasedParsing
+    public static <T, R, X extends Exception> Optional<R> tryParse(T input, ParseFunction<? super T, ? extends R, ? extends X> parser,
+            Class<X> expectedExceptionType) {
+
+        try {
+            return Optional.ofNullable(parser.parse(input));
+        } catch (final Exception e) {
+            if (expectedExceptionType.isInstance(e)) {
+                return Optional.empty();
+            }
+            // parser.parse can only throw instances of expectedException as checked exception,
+            // so any exception that's not an instance must be a RuntimeException
+            throw (RuntimeException) e;
+        }
     }
 
     // helper methods

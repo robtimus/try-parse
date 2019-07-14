@@ -18,11 +18,12 @@
 package com.github.robtimus.tryparse;
 
 import static com.github.robtimus.tryparse.TryParse.tryParseUnsignedLong;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.math.BigInteger;
 import java.util.OptionalLong;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({ "javadoc", "nls" })
 public class TryParseUnsignedLongTest {
@@ -241,14 +242,7 @@ public class TryParseUnsignedLongTest {
     }
 
     private void checkFailure(String input) {
-        try {
-            Long.parseUnsignedLong(input);
-            if (!isOverflow(input, 10)) {
-                fail("Expected NumberFormatException");
-            }
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        assertThrows(NumberFormatException.class, () -> Long.parseUnsignedLong(input));
         assertEquals(OptionalLong.empty(), tryParseUnsignedLong(input));
     }
 
@@ -257,7 +251,7 @@ public class TryParseUnsignedLongTest {
         try {
             Long.parseUnsignedLong(input, radix);
             if (!isOverflow(input, radix)) {
-                fail("Expected NumberFormatException");
+                fail("expected NumberFormatException");
             }
         } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // expected
@@ -266,24 +260,18 @@ public class TryParseUnsignedLongTest {
     }
 
     private void checkFailure(String input, int start, int end) {
-        try {
-            // Long.parseUnsignedLong with indexing is not yet available, use substring
-            Long.parseUnsignedLong(input.substring(start, end));
-            if (!isOverflow(input.substring(start, end), 10)) {
-                fail("Expected NumberFormatException");
-            }
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
+        // Long.parseUnsignedLong with indexing is not yet available, use substring
+        assertThrows(NumberFormatException.class, () -> Long.parseUnsignedLong(input.substring(start, end)));
         assertEquals(OptionalLong.empty(), tryParseUnsignedLong(input, start, end));
     }
 
     private void checkFailure(String input, int start, int end, int radix) {
+        // Long.parseUnsignedLong with indexing is not yet available, use substring
+        // Java 8's parseUnsignedLong has a bug that does not catch all overflow errors. This has been fixed in Java 9.
         try {
-            // Long.parseUnsignedLong with indexing is not yet available, use substring
             Long.parseUnsignedLong(input.substring(start, end), radix);
             if (!isOverflow(input.substring(start, end), radix)) {
-                fail("Expected NumberFormatException");
+                fail("expected NumberFormatException");
             }
         } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // expected
@@ -297,36 +285,16 @@ public class TryParseUnsignedLongTest {
     }
 
     private void checkIllegalArgumentException(String input, int start, int end, int radix) {
-        try {
-            // Long.parseUnsignedLong with indexing is not yet available, use substring
-            Long.parseUnsignedLong(input.substring(start, end), radix);
-            // Long.parseUnsignedLong throws NumberFormatException for invalid radixes instead of IllegalArgumentException
-            fail("Expected NumberFormatException");
-        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-            // expected
-        }
-        try {
-            tryParseUnsignedLong(input, start, end, radix);
-            fail("Expected IllegalArgumentException");
-        } catch (@SuppressWarnings("unused") IllegalArgumentException e) {
-            // expected
-        }
+        // Long.parseUnsignedLong with indexing is not yet available, use substring
+        // Long.parseUnsignedLong throws NumberFormatException for invalid radixes instead of IllegalArgumentException
+        assertThrows(NumberFormatException.class, () -> Long.parseUnsignedLong(input.substring(start, end), radix));
+        assertThrows(IllegalArgumentException.class, () -> tryParseUnsignedLong(input, start, end, radix));
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, int radix) {
-        try {
-            // Long.parseUnsignedLong with indexing is not yet available, use substring
-            Long.parseUnsignedLong(input.substring(start, end), radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
-        try {
-            tryParseUnsignedLong(input, start, end, radix);
-            fail("Expected IndexOutOfBoundsException");
-        } catch (@SuppressWarnings("unused") IndexOutOfBoundsException e) {
-            // expected
-        }
+        // Long.parseUnsignedLong with indexing is not yet available, use substring
+        assertThrows(IndexOutOfBoundsException.class, () -> Long.parseUnsignedLong(input.substring(start, end), radix));
+        assertThrows(IndexOutOfBoundsException.class, () -> tryParseUnsignedLong(input, start, end, radix));
     }
 
     private void checkNull(int radix) {
