@@ -17,7 +17,5 @@
 
 /**
  * Contains classes to perform parsing to {@link java.util.Optional} and its primitive versions.
- *
- * @author Rob Spoor
  */
 package com.github.robtimus.tryparse;
