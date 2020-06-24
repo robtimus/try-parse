@@ -61,7 +61,7 @@ final class UnsignedMultiplyLongBounds {
     }
 
     private UnsignedMultiplyLongBounds() {
-        throw new Error("cannot create instances of " + getClass().getName()); //$NON-NLS-1$
+        throw new IllegalStateException("cannot create instances of " + getClass().getName()); //$NON-NLS-1$
     }
 
     static long get(int radix) {

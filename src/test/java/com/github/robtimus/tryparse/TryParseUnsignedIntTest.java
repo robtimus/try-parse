@@ -23,13 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.OptionalInt;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class TryParseUnsignedIntTest {
+@SuppressWarnings("nls")
+class TryParseUnsignedIntTest {
 
     private static final long MAX_UNSIGNED_INT_VALUE = 0xFFFF_FFFFL;
 
     @Test
-    public void testTryParseUnsignedInt() {
+    void testTryParseUnsignedInt() {
         checkNegativeNumber(-128);
         for (int i = -32; i < 0; i++) {
             checkNegativeNumber(i);

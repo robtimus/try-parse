@@ -49,11 +49,11 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class TryParseCatchingTest {
+@SuppressWarnings("nls")
+class TryParseCatchingTest {
 
     @Test
-    public void testParseDouble() {
+    void testParseDouble() {
         assertEquals(OptionalDouble.empty(), tryParseDouble(null));
         assertEquals(OptionalDouble.empty(), tryParseDouble(""));
         assertEquals(123.456, tryParseDouble("123.456").getAsDouble(), 0.00001);
@@ -61,7 +61,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseURI() {
+    void testParseURI() {
         assertEquals(Optional.empty(), tryParseURI(null));
         // an empty URI is valid
         assertEquals(Optional.of(URI.create("http://example.org")), tryParseURI("http://example.org"));
@@ -69,7 +69,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseURL() throws MalformedURLException {
+    void testParseURL() throws MalformedURLException {
         assertEquals(Optional.empty(), tryParseURL(null));
         assertEquals(Optional.empty(), tryParseURL(""));
         assertEquals(Optional.of(new URL("http://example.org")), tryParseURL("http://example.org"));
@@ -77,7 +77,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseInstant() {
+    void testParseInstant() {
         assertEquals(Optional.empty(), tryParseInstant(null));
         assertEquals(Optional.empty(), tryParseInstant(""));
         assertEquals(Optional.of(Instant.parse("2007-12-03T10:15:30.00Z")), tryParseInstant("2007-12-03T10:15:30.00Z"));
@@ -85,7 +85,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseLocalDate() {
+    void testParseLocalDate() {
         assertEquals(Optional.empty(), tryParseLocalDate(null));
         assertEquals(Optional.empty(), tryParseLocalDate(""));
         assertEquals(Optional.of(LocalDate.of(2007, 12, 3)), tryParseLocalDate("2007-12-03"));
@@ -99,7 +99,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseLocalDateTime() {
+    void testParseLocalDateTime() {
         assertEquals(Optional.empty(), tryParseLocalDateTime(null));
         assertEquals(Optional.empty(), tryParseLocalDateTime(""));
         assertEquals(Optional.of(LocalDateTime.of(2007, 12, 3, 10, 15, 30)), tryParseLocalDateTime("2007-12-03T10:15:30"));
@@ -113,7 +113,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseLocalTime() {
+    void testParseLocalTime() {
         assertEquals(Optional.empty(), tryParseLocalTime(null));
         assertEquals(Optional.empty(), tryParseLocalTime(""));
         assertEquals(Optional.of(LocalTime.of(10, 15, 30)), tryParseLocalTime("10:15:30"));
@@ -127,7 +127,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseOffsetDateTime() {
+    void testParseOffsetDateTime() {
         assertEquals(Optional.empty(), tryParseOffsetDateTime(null));
         assertEquals(Optional.empty(), tryParseOffsetDateTime(""));
         assertEquals(Optional.of(OffsetDateTime.of(2007, 12, 3, 10, 15, 30, 0, ZoneOffset.ofHours(1))),
@@ -143,7 +143,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseOffsetTime() {
+    void testParseOffsetTime() {
         assertEquals(Optional.empty(), tryParseOffsetTime(null));
         assertEquals(Optional.empty(), tryParseOffsetTime(""));
         assertEquals(Optional.of(OffsetTime.of(10, 15, 30, 0, ZoneOffset.ofHours(1))), tryParseOffsetTime("10:15:30+01:00"));
@@ -157,7 +157,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseZonedDateTime() {
+    void testParseZonedDateTime() {
         assertEquals(Optional.empty(), tryParseZonedDateTime(null));
         assertEquals(Optional.empty(), tryParseZonedDateTime(""));
         assertEquals(Optional.of(ZonedDateTime.of(2007, 12, 3, 10, 15, 30, 0, ZoneId.of("Europe/Paris"))),
@@ -173,7 +173,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParseTemporal() {
+    void testParseTemporal() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         assertEquals(Optional.empty(), tryParseTemporal(null, formatter, LocalDate::from));
         assertEquals(Optional.empty(), tryParseTemporal("", formatter, LocalDate::from));
@@ -182,7 +182,7 @@ public class TryParseCatchingTest {
     }
 
     @Test
-    public void testParse() {
+    void testParse() {
         assertEquals(Optional.empty(), tryParse(null, o -> o));
         assertEquals(Optional.of(""), tryParse("", o -> o));
         assertEquals(Optional.of("foo"), tryParse("foo", o -> o));

@@ -25,13 +25,13 @@ import java.math.BigInteger;
 import java.util.OptionalLong;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class TryParseUnsignedLongTest {
+@SuppressWarnings("nls")
+class TryParseUnsignedLongTest {
 
     private static final BigInteger MAX_UNSIGNED_LONG_VALUE = BigInteger.valueOf(2).pow(64).subtract(BigInteger.ONE);
 
     @Test
-    public void testTryParseUnsignedLong() {
+    void testTryParseUnsignedLong() {
         checkNegativeNumber(-128);
         for (long i = -32; i < 0; i++) {
             checkNegativeNumber(i);

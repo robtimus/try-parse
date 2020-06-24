@@ -23,11 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class TryParseBooleanTest {
+@SuppressWarnings("nls")
+class TryParseBooleanTest {
 
     @Test
-    public void testTryParseBoolean() {
+    void testTryParseBoolean() {
         checkWithAndWithoutSubsequences(true, "true");
         checkWithAndWithoutSubsequences(true, "TRUE");
         checkWithAndWithoutSubsequences(false, "false");

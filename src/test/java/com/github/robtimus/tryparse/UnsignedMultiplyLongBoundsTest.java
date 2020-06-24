@@ -22,13 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("javadoc")
-public class UnsignedMultiplyLongBoundsTest {
+class UnsignedMultiplyLongBoundsTest {
 
     private static final BigInteger MAX_UNSIGNED_LONG_VALUE = BigInteger.valueOf(2).pow(64).subtract(BigInteger.ONE);
 
     @Test
-    public void testGet() {
+    void testGet() {
         for (int radix = Character.MIN_RADIX; radix <= Character.MAX_RADIX; radix++) {
             long expected = MAX_UNSIGNED_LONG_VALUE.divide(BigInteger.valueOf(radix)).longValueExact();
             assertEquals(expected, UnsignedMultiplyLongBounds.get(radix));
@@ -36,7 +35,7 @@ public class UnsignedMultiplyLongBoundsTest {
     }
 
     @Test
-    public void testGetRadixToHigh() {
+    void testGetRadixToHigh() {
         assertThrows(IndexOutOfBoundsException.class, () -> UnsignedMultiplyLongBounds.get(Character.MAX_RADIX + 1));
     }
 }

@@ -24,11 +24,11 @@ import java.math.BigInteger;
 import java.util.OptionalLong;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class TryParseLongTest {
+@SuppressWarnings("nls")
+class TryParseLongTest {
 
     @Test
-    public void testTryParseLong() {
+    void testTryParseLong() {
         checkNegativeNumber(-128);
         for (long i = -32; i < 0; i++) {
             checkNegativeNumber(i);

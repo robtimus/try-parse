@@ -46,7 +46,7 @@ public final class TryParse {
     private static final int DEFAULT_RADIX = 10;
 
     private TryParse() {
-        throw new Error("cannot create instances of " + getClass().getName()); //$NON-NLS-1$
+        throw new IllegalStateException("cannot create instances of " + getClass().getName()); //$NON-NLS-1$
     }
 
     // int

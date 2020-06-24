@@ -23,11 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.OptionalInt;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "javadoc", "nls" })
-public class TryParseIntTest {
+@SuppressWarnings("nls")
+class TryParseIntTest {
 
     @Test
-    public void testTryParseInt() {
+    void testTryParseInt() {
         checkNegativeNumber(-128);
         for (int i = -32; i < 0; i++) {
             checkNegativeNumber(i);
