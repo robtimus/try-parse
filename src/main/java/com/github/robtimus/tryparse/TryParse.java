@@ -591,12 +591,12 @@ public final class TryParse {
         }
 
         switch (end - start) {
-        case 4:
-            return tryParseTrue(cs, start, ignoreCase);
-        case 5:
-            return tryParseFalse(cs, start, ignoreCase);
-        default:
-            return Optional.empty();
+            case 4:
+                return tryParseTrue(cs, start, ignoreCase);
+            case 5:
+                return tryParseFalse(cs, start, ignoreCase);
+            default:
+                return Optional.empty();
         }
     }
 
@@ -1110,6 +1110,7 @@ public final class TryParse {
 
     private static boolean matchesChar(CharSequence cs, int index, char toMatch, boolean ignoreCase) {
         char c = cs.charAt(index);
-        return c == toMatch || (ignoreCase && Character.toLowerCase(c) == toMatch);
+        return c == toMatch
+                || ignoreCase && Character.toLowerCase(c) == toMatch;
     }
 }
