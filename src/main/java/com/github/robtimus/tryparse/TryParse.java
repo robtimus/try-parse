@@ -46,7 +46,6 @@ public final class TryParse {
     private static final int DEFAULT_RADIX = 10;
 
     private TryParse() {
-        throw new IllegalStateException("cannot create instances of " + getClass().getName()); //$NON-NLS-1$
     }
 
     // int
@@ -605,7 +604,7 @@ public final class TryParse {
         if (matchesChar(cs, index++, 't', ignoreCase)
                 && matchesChar(cs, index++, 'r', ignoreCase)
                 && matchesChar(cs, index++, 'u', ignoreCase)
-                && matchesChar(cs, index++, 'e', ignoreCase)) {
+                && matchesChar(cs, index, 'e', ignoreCase)) {
 
             return Optional.of(true);
         }
@@ -618,7 +617,7 @@ public final class TryParse {
                 && matchesChar(cs, index++, 'a', ignoreCase)
                 && matchesChar(cs, index++, 'l', ignoreCase)
                 && matchesChar(cs, index++, 's', ignoreCase)
-                && matchesChar(cs, index++, 'e', ignoreCase)) {
+                && matchesChar(cs, index, 'e', ignoreCase)) {
 
             return Optional.of(false);
         }

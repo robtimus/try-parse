@@ -261,7 +261,8 @@ class TryParseUnsignedLongTest {
 
     private void checkFailure(String input, int start, int end) {
         // Long.parseUnsignedLong with indexing is not yet available, use substring
-        assertThrows(NumberFormatException.class, () -> Long.parseUnsignedLong(input.substring(start, end)));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Long.parseUnsignedLong(substring));
         assertEquals(OptionalLong.empty(), tryParseUnsignedLong(input, start, end));
     }
 
@@ -287,13 +288,14 @@ class TryParseUnsignedLongTest {
     private void checkIllegalArgumentException(String input, int start, int end, int radix) {
         // Long.parseUnsignedLong with indexing is not yet available, use substring
         // Long.parseUnsignedLong throws NumberFormatException for invalid radixes instead of IllegalArgumentException
-        assertThrows(NumberFormatException.class, () -> Long.parseUnsignedLong(input.substring(start, end), radix));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Long.parseUnsignedLong(substring, radix));
         assertThrows(IllegalArgumentException.class, () -> tryParseUnsignedLong(input, start, end, radix));
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, int radix) {
         // Long.parseUnsignedLong with indexing is not yet available, use substring
-        assertThrows(IndexOutOfBoundsException.class, () -> Long.parseUnsignedLong(input.substring(start, end), radix));
+        assertThrows(IndexOutOfBoundsException.class, () -> input.substring(start, end));
         assertThrows(IndexOutOfBoundsException.class, () -> tryParseUnsignedLong(input, start, end, radix));
     }
 

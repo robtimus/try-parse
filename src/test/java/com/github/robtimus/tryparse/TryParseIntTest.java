@@ -238,26 +238,29 @@ class TryParseIntTest {
 
     private void checkFailure(String input, int start, int end) {
         // Integer.parseInt with indexing is not yet available, use substring
-        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input.substring(start, end)));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(substring));
         assertEquals(OptionalInt.empty(), tryParseInt(input, start, end));
     }
 
     private void checkFailure(String input, int start, int end, int radix) {
         // Integer.parseInt with indexing is not yet available, use substring
-        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input.substring(start, end), radix));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(substring, radix));
         assertEquals(OptionalInt.empty(), tryParseInt(input, start, end, radix));
     }
 
     private void checkIllegalArgumentException(String input, int start, int end, int radix) {
         // Integer.parseInt with indexing is not yet available, use substring
         // Integer.parseInt throws NumberFormatException for invalid radixes instead of IllegalArgumentException
-        assertThrows(NumberFormatException.class, () -> Integer.parseInt(input.substring(start, end), radix));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Integer.parseInt(substring, radix));
         assertThrows(IllegalArgumentException.class, () -> tryParseInt(input, start, end, radix));
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, int radix) {
         // Integer.parseInt with indexing is not yet available, use substring
-        assertThrows(IndexOutOfBoundsException.class, () -> Integer.parseInt(input.substring(start, end), radix));
+        assertThrows(IndexOutOfBoundsException.class, () -> input.substring(start, end));
         assertThrows(IndexOutOfBoundsException.class, () -> tryParseInt(input, start, end, radix));
     }
 

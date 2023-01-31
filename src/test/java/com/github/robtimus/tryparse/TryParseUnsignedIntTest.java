@@ -244,26 +244,29 @@ class TryParseUnsignedIntTest {
 
     private void checkFailure(String input, int start, int end) {
         // Integer.parseUnsignedInt with indexing is not yet available, use substring
-        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input.substring(start, end)));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(substring));
         assertEquals(OptionalInt.empty(), tryParseUnsignedInt(input, start, end));
     }
 
     private void checkFailure(String input, int start, int end, int radix) {
         // Integer.parseUnsignedInt with indexing is not yet available, use substring
-        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input.substring(start, end), radix));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(substring, radix));
         assertEquals(OptionalInt.empty(), tryParseUnsignedInt(input, start, end, radix));
     }
 
     private void checkIllegalArgumentException(String input, int start, int end, int radix) {
         // Integer.parseUnsignedInt with indexing is not yet available, use substring
         // Integer.parseUnsignedInt throws NumberFormatException for invalid radixes instead of IllegalArgumentException
-        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(input.substring(start, end), radix));
+        String substring = input.substring(start, end);
+        assertThrows(NumberFormatException.class, () -> Integer.parseUnsignedInt(substring, radix));
         assertThrows(IllegalArgumentException.class, () -> tryParseUnsignedInt(input, start, end, radix));
     }
 
     private void checkIndexOutOfBoundsException(String input, int start, int end, int radix) {
         // Integer.parseUnsignedInt with indexing is not yet available, use substring
-        assertThrows(IndexOutOfBoundsException.class, () -> Integer.parseUnsignedInt(input.substring(start, end), radix));
+        assertThrows(IndexOutOfBoundsException.class, () -> input.substring(start, end));
         assertThrows(IndexOutOfBoundsException.class, () -> tryParseUnsignedInt(input, start, end, radix));
     }
 
