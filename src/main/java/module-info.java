@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+/**
+ * Provides functionality to parse to Optional and its primitive versions.
+ */
 module com.github.robtimus.tryparse {
     exports com.github.robtimus.tryparse;
 }
