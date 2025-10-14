@@ -186,12 +186,12 @@ class TryParseCatchingTest {
         assertEquals(Optional.empty(), tryParse(null, o -> o));
         assertEquals(Optional.of(""), tryParse("", o -> o));
         assertEquals(Optional.of("foo"), tryParse("foo", o -> o));
-        assertEquals(Optional.empty(), tryParse(null, o -> Objects.requireNonNull(o)));
+        assertEquals(Optional.empty(), tryParse(null, Objects::requireNonNull));
 
         assertEquals(Optional.empty(), tryParse(null, o -> o, NullPointerException.class));
         assertEquals(Optional.of(""), tryParse("", o -> o, NullPointerException.class));
         assertEquals(Optional.of("foo"), tryParse("foo", o -> o, NullPointerException.class));
-        assertEquals(Optional.empty(), tryParse(null, o -> Objects.requireNonNull(o), NullPointerException.class));
-        assertThrows(NullPointerException.class, () -> tryParse(null, o -> Objects.requireNonNull(o), IllegalArgumentException.class));
+        assertEquals(Optional.empty(), tryParse(null, Objects::requireNonNull, NullPointerException.class));
+        assertThrows(NullPointerException.class, () -> tryParse(null, Objects::requireNonNull, IllegalArgumentException.class));
     }
 }
