@@ -49,7 +49,7 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("nls")
+@SuppressWarnings({ "nls", "squid:S8694" })
 class TryParseCatchingTest {
 
     @Test
